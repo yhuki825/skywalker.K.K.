@@ -90,23 +90,22 @@ const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(
 
 export default defineConfig({
   plugins,
-  // Cloudflare Pagesのルートからの相対パスで設定
   base: "/",
   resolve: {
     alias: {
-      // clientフォルダ内にあることを前提にパスを修正
       "@": path.resolve(PROJECT_ROOT, "src"),
       "@shared": path.resolve(PROJECT_ROOT, "../shared"),
       "@assets": path.resolve(PROJECT_ROOT, "../attached_assets"),
     },
   },
-  // clientフォルダを基準に設定
-  root: PROJECT_ROOT,
+
+  // 【ここを修正！】
+  // 確実に index.html がある場所を指し示します
+  root: path.resolve(PROJECT_ROOT), 
+
   build: {
-    // 出力先を "client/dist" に変更（Cloudflareの設定と合わせるため）
-    outDir: "dist",
+    outDir: "../dist", // 出力先を親フォルダの dist に出す設定
     emptyOutDir: true,
-    reportCompressedSize: false,
   },
   server: {
     port: 3000,
