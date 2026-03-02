@@ -93,18 +93,15 @@ export default defineConfig({
   base: "/",
   resolve: {
     alias: {
+      // 階層を一段上げたので、../src ではなく src になります
       "@": path.resolve(PROJECT_ROOT, "src"),
-      "@shared": path.resolve(PROJECT_ROOT, "../shared"),
-      "@assets": path.resolve(PROJECT_ROOT, "../attached_assets"),
+      "@shared": path.resolve(PROJECT_ROOT, "shared"),
+      "@assets": path.resolve(PROJECT_ROOT, "attached_assets"),
     },
   },
-
-  // 【ここを修正！】
-  // 確実に index.html がある場所を指し示します
-  root: path.resolve(PROJECT_ROOT), 
-
+  // index.htmlはconfigと同じ階層にあるのでroot指定は不要（自動認識されます）
   build: {
-    outDir: "../dist", // 出力先を親フォルダの dist に出す設定
+    outDir: "dist",
     emptyOutDir: true,
   },
   server: {
